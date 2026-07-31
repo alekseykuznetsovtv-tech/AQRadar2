@@ -240,7 +240,38 @@
             
             signalBarEl.style.width = percentage + '%';
         }
+ // Обновление состояния детектора
+        function updateDetectorState(dist) {
+            const roundedDist = Math.round(dist);
+            updateSignalBar(dist);
 
+            if (dist > MAX_DETECTION_DIST) {
+                currentInterval = 0;
+                statusEl.style.color = '#ffcc00';
+                statusEl.textContent = 'Сканирование... Полезный сигнал не обнаружен';
+                distanceEl.textContent = '--- м';
+            } else if (dist > 250) {
+                currentInterval = 1200;
+                statusEl.style.color = '#ffcc00';
+                statusEl.textContent = 'Фиксация слабого сигнала';
+                distanceEl.textContent = roundedDist + ' м';
+            } else if (dist > 80) {
+                currentInterval = 400;
+                statusEl.style.color = '#ff9900';
+                statusEl.textContent = 'ВНИМАНИЕ: Рост уровня сигнала!';
+                distanceEl.textContent = roundedDist + ' м';
+            } else if (dist > 25) {
+                currentInterval = 120;
+                statusEl.style.color = '#ff3300';
+                statusEl.textContent = 'Внимание!: Максмальный уровень сигнала!';
+                distanceEl.textContent = roundedDist + ' м';
+            } else {
+                currentInterval = 50;
+                statusEl.style.color = '#00ff66';
+                statusEl.textContent = 'Максимальное приближение к объекту!';
+                distanceEl.textContent = roundedDist + ' м';
+            }
+        }
        
         // Запуск
         function startSearch() {
