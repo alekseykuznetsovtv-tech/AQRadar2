@@ -123,7 +123,7 @@
 <body>
 
     <div class="container">
-        <h1>ДЕТЕКТОР - AQ11</h1>
+        <h1>ДЕТЕКТОР-2</h1>
         <div id="status" class="status-box">Нажмите кнопку для активации сенсоров</div>
         
         <!-- Графическая шкала -->
@@ -241,39 +241,7 @@
             signalBarEl.style.width = percentage + '%';
         }
 
-        // Обновление состояния детектора
-        function updateDetectorState(dist) {
-            const roundedDist = Math.round(dist);
-            updateSignalBar(dist);
-
-            if (dist > MAX_DETECTION_DIST) {
-                currentInterval = 0;
-                statusEl.style.color = '#ffcc00';
-                statusEl.textContent = 'Сканирование... Полезный сигнал не обнаружен';
-                distanceEl.textContent = '--- м';
-            } else if (dist > 250) {
-                currentInterval = 1200;
-                statusEl.style.color = '#ffcc00';
-                statusEl.textContent = 'Фиксация слабого фонового поля';
-                distanceEl.textContent = roundedDist + ' м';
-            } else if (dist > 80) {
-                currentInterval = 400;
-                statusEl.style.color = '#ff9900';
-                statusEl.textContent = 'ВНИМАНИЕ: Рост уровня сигнала!';
-                distanceEl.textContent = roundedDist + ' м';
-            } else if (dist > 25) {
-                currentInterval = 120;
-                statusEl.style.color = '#ff3300';
-                statusEl.textContent = 'Внимание!: Максмальный уровень сигнала!';
-                distanceEl.textContent = roundedDist + ' м';
-            } else {
-                currentInterval = 50;
-                statusEl.style.color = '#00ff66';
-                statusEl.textContent = 'ОБЪЕКТ ОБНАРУЖЕН! ИЩИТЕ КОД В ЭТОМ ЗДАНИИ!';
-                distanceEl.textContent = roundedDist + ' м';
-            }
-        }
-
+       
         // Запуск
         function startSearch() {
             initAudio();
